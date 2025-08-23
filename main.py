@@ -1,7 +1,6 @@
 import datetime
 import os
 
-import matplotlib.pyplot as plt
 import requests
 from dotenv import load_dotenv
 
@@ -34,7 +33,6 @@ GRAPH_PATH = os.path.abspath(os.path.join(__file__, os.pardir, "graph.png"))
 
 
 def generate_weather_image():
-    plt.rcParams["font.family"] = "Noto Color Emoji"
     data = requests.get(API_URL).json()
 
     hours = data["hourly"]["time"]
