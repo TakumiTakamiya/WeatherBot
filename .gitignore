@@ -1,0 +1,10 @@
+.env
+.venv
+
+graph.png
+
+__pycache__
+*/__pycache__
+*_cache
+
+text_images/tmp.html
