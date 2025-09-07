@@ -15,6 +15,9 @@ RAIN_UNIT = (RAIN_ZERO - RAIN_MAX) / 15
 EMOJIS_IMAGE_FOLDER = os.path.abspath(os.path.join(__file__, os.pardir, "emoji_images"))
 EMOJI_IMAGE_SIZE = 20
 
+TIME_IMAGE_HEIGHT = 20
+TIME_IMAGE_WIDHT = 40
+
 HOUR_UP = 160
 
 WEATHER_UP = 180
@@ -188,6 +191,15 @@ def draw(
                 outline_width=0,
             )
 
+    # 時間テキストを描画
+    for text, i in [("t800", 0), ("t1200", 4), ("t1900", 11)]:
+        center = 50 + 50 * i
+        paste_png(
+            canvas,
+            os.path.join(EMOJIS_IMAGE_FOLDER, f"{text}.png"),
+            (center - TIME_IMAGE_WIDHT // 2, HOUR_UP),
+        )
+
     # PNG画像を貼る（透過PNGを想定）。座標は左上。
     for i, d in enumerate(discomforts):
         center = 50 + 50 * i
@@ -224,16 +236,6 @@ def draw(
                 os.path.join(EMOJIS_IMAGE_FOLDER, f"{name}.png"),
                 (center - width // 2 + EMOJI_IMAGE_SIZE * j, WEATHER_UP),
             )
-
-    # ASCII テキストを描画
-    for i in range(16):
-        draw_text(
-            canvas,
-            (30 + i * 50, HOUR_UP),
-            hour_text(i + 8),
-            font_size=28,
-            fill=TEXT_COLOR,
-        )
 
     # 保存
     canvas.convert("RGB").save(output_path, "PNG")
